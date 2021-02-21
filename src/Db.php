@@ -11,7 +11,10 @@ namespace Manager;
 
 use PDO;
 
-
+/**
+ * Class Db
+ * @package Manager
+ */
 class Db
 {
 
@@ -55,6 +58,9 @@ class Db
      */
     private PDO $connection;
 
+    /**
+     * @return mixed
+     */
     public static function get_instance()
     {
         if (is_null(static::$instance)) {
@@ -64,6 +70,9 @@ class Db
         return static::$instance;
     }
 
+    /**
+     * Db constructor.
+     */
     protected function __construct()
     {
         $this->config = new Config();

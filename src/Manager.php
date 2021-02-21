@@ -64,6 +64,9 @@ class Manager
         echo json_encode(array('action' => 'completed', 'tasks' => $rows));
     }
 
+    /**
+     * @param  int  $todo_list_id
+     */
     public function getActiveTasks(int $todo_list_id = 1)
     {
         $sql = 'SELECT task_id, task_description FROM tasks WHERE status = 1 AND todo_list_id =' . $todo_list_id;
@@ -72,7 +75,14 @@ class Manager
         echo json_encode(array('action' => 'active', 'tasks' => $rows));
     }
 
-    public function updateTasks($task_id, $task_description, $status = 1, $todo_list_id = 0)
+    /**
+     * @param $task_id
+     * @param $task_description
+     * @param  int  $status
+     * @param  int  $todo_list_id
+     * @throws \Exception
+     */
+    public function updateTasks($task_id, $task_description, $status = 1, int $todo_list_id = 0)
     {
         try {
             $sth = $this->connection->prepare(
@@ -94,6 +104,12 @@ class Manager
         }
     }
 
+    /**
+     * @param $task_id
+     * @param  int  $status
+     * @param  int  $todo_list_id
+     * @throws \Exception
+     */
     public function updateStatusTasks($task_id, $status = 1, int $todo_list_id = 0)
     {
         try {
@@ -114,6 +130,11 @@ class Manager
         }
     }
 
+    /**
+     * @param $task_id
+     * @param  int  $todo_list_id
+     * @throws \Exception
+     */
     public function deleteTask($task_id, int $todo_list_id = 0)
     {
         try {
@@ -126,6 +147,10 @@ class Manager
         }
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function getLastIdToDoList(){
         try {
             $q = $this->connection->query("SHOW TABLE STATUS LIKE 'todo_lists'");
@@ -136,6 +161,10 @@ class Manager
         }
     }
 
+    /**
+     * @param $todo_list_id
+     * @throws \Exception
+     */
     public function createToDoList($todo_list_id)
     {
         try {
